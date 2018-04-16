@@ -23,9 +23,9 @@ public class Chromosome {
         for (int i = 0; i < NUMTILES; i++) {
 
             do {
-                tile = gen.nextInt() + 1;
-            }
-            while(STATE.contains(tile));
+                tile = gen.nextInt(10);
+
+            } while(STATE.contains(tile));
             STATE.add(tile);
         }
     }

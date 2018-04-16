@@ -16,7 +16,11 @@ public class Main {
         System.out.println("[ BOARD SIZE: " + SIZE + " * " + SIZE + " ]");
         System.out.println("===============================================================");
 
+        //start initial generation
         GA ga = new GA(SIZE);
+
+        ga.RandomPopulation();
+        System.out.print(ga.PrintGeneration());
 
     }
 }

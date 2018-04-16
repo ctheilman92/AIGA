@@ -1,8 +1,5 @@
 package GA;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GA {
@@ -18,6 +15,25 @@ public class GA {
         this.POPULATION_SIZE = (int)Math.pow(N, 3);
     }
 
+    public String PrintGeneration() {
+
+        //this is just a formatted output
+        //3 states per line
+        int lineCount = 0;
+
+        StringBuilder sb = new StringBuilder();
+
+        for (Chromosome c : POPULATION) {
+            sb.append(c.GetState().toString() + " , ");
+            lineCount++;
+
+            if (lineCount % 3 == 0)
+                sb.append("\n-----------------------------------------------------------------------------------------\n");
+        }
+
+        return sb.toString();
+    }
+
 
     public void RandomPopulation() {
 
@@ -28,11 +44,13 @@ public class GA {
 
             //generate each chromosome configuration such that each solution is solvable AND unique to our population
             c.SetState();
-            while (!c.ISStateSolvable() && ) {
+            while (!c.ISStateSolvable() || !IsUniqueChromosome(c)) {
                 c.SetState();
             }
 
-
+//            System.out.println(c.GetState().toString());
+//            System.out.println("-------------------------------");
+            POPULATION.add(c);
 
         }
 
@@ -41,6 +59,16 @@ public class GA {
 
     public boolean IsUniqueChromosome(Chromosome c) {
 
+        String cstate = c.GetState().toString();
+        for (Chromosome compc : POPULATION) {
+
+            String compstate = compc.GetState().toString();
+
+            if (cstate.equals(compstate))
+                return false;
+        }
+
+        return true;
     }
 
     public ArrayList<Chromosome> GetPopulation() {
