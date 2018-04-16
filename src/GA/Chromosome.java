@@ -23,10 +23,13 @@ public class Chromosome {
         for (int i = 0; i < NUMTILES; i++) {
 
             do {
-                tile = gen.nextInt(10);
+                tile = gen.nextInt(NUMTILES);
 
             } while(STATE.contains(tile));
+
+            System.out.println(tile);
             STATE.add(tile);
+
         }
     }
 
@@ -34,18 +37,29 @@ public class Chromosome {
         return STATE;
     }
 
-    public boolean ISStateSolvable() {
+    public boolean IsStateSolvable() {
 
         /*solution is solvable in following cases:
-            : IF SIZE = EVEN => Total Inversion Count is ODD
+            : IF SIZE = EVEN => Total Inversion Count is (EVEN|ODD) && the 0 tile is on an (ODD|EVEN) space
             : IF SIZE = ODD => TOTAL Inversion Count is EVEN
         */
-        boolean Solvable = false;
+
         int InversionCount = 0;
+        int row = 0;
+        int blankrow = 0;
 
         //count pairs(i, j) such that i appears before j, and i > j
         for (int tile : STATE) {
             int positionOfCurrent = STATE.indexOf(tile);
+
+            if (row % 2 == 0)
+                row++;
+
+            //keep track of the row where the blank is.
+            if (STATE.get(positionOfCurrent) == 0) {
+                blankrow = row;
+                continue;
+            }
 
             //start at 1 -- find position of tile 1. if position is higher than position of the current tile we are checking -- then INVERSION -- move to next number
             for (int previousTile = 1; previousTile < tile; previousTile++) {
@@ -58,14 +72,19 @@ public class Chromosome {
 
         //if even
         if (SIZE % 2 == 0) {
-            Solvable = (InversionCount % 2 == 0) ? false : true;
+            if (blankrow % 2 == 0) {
+                return InversionCount % 2 == 0;
+            }
+            else {
+                return InversionCount % 2 != 0;
+            }
         }
         else {
-            //else false
-            Solvable = (InversionCount % 2 == 0) ? true : false;
+            //else false (odd size)
+            return InversionCount % 2 == 0;
         }
 
-        return Solvable;
+
     }
 
     private void SetFitness() {

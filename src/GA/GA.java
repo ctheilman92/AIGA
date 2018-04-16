@@ -13,6 +13,8 @@ public class GA {
     public GA(int N) {
         this.SIZE = N;
         this.POPULATION_SIZE = (int)Math.pow(N, 3);
+
+        System.out.println(SIZE + "=====" + POPULATION_SIZE);
     }
 
     public String PrintGeneration() {
@@ -41,15 +43,17 @@ public class GA {
 
         for (int i = 0; i < POPULATION_SIZE; i++) {
             Chromosome c = new Chromosome(SIZE);
+            System.out.println("here?");
 
             //generate each chromosome configuration such that each solution is solvable AND unique to our population
             c.SetState();
-            while (!c.ISStateSolvable() || !IsUniqueChromosome(c)) {
+            while (!c.IsStateSolvable() || !IsUniqueChromosome(c)) {
+
                 c.SetState();
             }
 
-//            System.out.println(c.GetState().toString());
-//            System.out.println("-------------------------------");
+            System.out.println(c.GetState().toString());
+            System.out.println("-------------------------------");
             POPULATION.add(c);
 
         }
