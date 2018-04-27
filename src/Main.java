@@ -20,7 +20,9 @@ public class Main {
         GA ga = new GA(SIZE);
 
         ga.RandomPopulation();
-        System.out.print(ga.PrintGeneration());
+        ga.RoulletteSelect();
+        ga.PrintProbabilities();
+
 
     }
 }
