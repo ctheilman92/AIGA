@@ -26,6 +26,26 @@ public class Chromosome {
         GOALSTATE.add(0);
     }
 
+    //this constructor used when a new child is crossbred
+    public Chromosome(int n, ArrayList<Integer> NewState) {
+        SIZE = n;
+        NUMTILES = (n*n);
+
+        GOALSTATE = new ArrayList<>(NUMTILES);
+        for (int i = 1; i < NUMTILES; i++) {
+            GOALSTATE.add(i);
+        }
+        GOALSTATE.add(0);
+        STATE = NewState;
+        SetFitnessGradeByStepComparitor();
+    }
+
+
+    public void SetState(ArrayList<Integer> NewState) {
+        this.STATE = NewState;
+        this.SetFitnessGradeByStepComparitor();
+    }
+
     public void SetState() {
         STATE = new ArrayList<>();
         int tile;
@@ -49,6 +69,8 @@ public class Chromosome {
     public ArrayList<Integer> GetState() {
         return STATE;
     }
+
+    public ArrayList<Integer> GetGoal() { return GOALSTATE; }
 
     public boolean IsStateSolvable() {
 
@@ -100,16 +122,21 @@ public class Chromosome {
 
     }
 
+    public boolean IsGoal() { return (STATE.equals(GOALSTATE)) ? true : false; }
+
     private int[] TransposeGridCoordinates(ArrayList<Integer> State, int ValueInState) {
         int StatePos = State.indexOf(ValueInState);
+//        System.out.println("TILE (" + ValueInState + ") GRADIENT: -> " + StatePos);
         int Si = 1;
         int Sj = 0;
 
         //col
         Sj = (StatePos + 1) % SIZE;
         if (Sj == 0) {
-            Sj = 4;
+            Sj = SIZE;
         }
+
+
         //row
         Si = (int)Math.floor((StatePos) / SIZE) + 1;
 
@@ -120,44 +147,32 @@ public class Chromosome {
         return coords;
     }
 
-
-
     //if tile is in intended position -> tile grade = 1;
     //if 1 step away take portion of steps away from 1 (ex. if n=3 => maxsteps = 4...2 is in position 1 (1 step away) -> 2 is 3/4.
-    private void SetFitnessGradeByStepComparitor() {
+    public void SetFitnessGradeByStepComparitor() {
         int MaxMoves = MaxMoves();
         float SigmaTileMoves = 0;
 
-        //determine the sa
-
-        System.out.println(STATE);
         for (int tile : STATE) {
 
-            int[] GoalCoordinates = TransposeGridCoordinates(GOALSTATE, tile);
-//            System.out.println("Goal Coords of Tile " + tile + ":=>   " + GoalCoordinates[0] + ", " + GoalCoordinates[1]);
-
             int[] StateCoordinates = TransposeGridCoordinates(STATE, tile);
-//            System.out.println("State Coords of Tile " + tile + ":=>   " + StateCoordinates[0] + ", " + StateCoordinates[1]);
-
+            int[] GoalCoordinates = TransposeGridCoordinates(GOALSTATE, tile);
 
             int TileMovesToGoal = Math.abs(GoalCoordinates[0] - StateCoordinates[0]) + Math.abs(GoalCoordinates[1] - StateCoordinates[1]);
             int variantTileGrade = MaxMoves - TileMovesToGoal;
-            System.out.println("VARIANT TILE GRADE of Tile (" + tile + "): =>>>> " + variantTileGrade);
 
             float VariantProportionGrade = ((float)variantTileGrade / (float)MaxMoves);
-            System.out.println("Max Variant Tile Grade ::::::::::::::::::::::::::; " + VariantProportionGrade);
-            SigmaTileMoves += (variantTileGrade / MaxMoves);
+            SigmaTileMoves += VariantProportionGrade;
 
         }
 
         this.FitnessGrade = SigmaTileMoves;
     }
 
+
     //this sets the fitness function based on the sum of each tile's grade as how many steps away from the expected position for that tile's value
     //total moves = 2N - 2
-    private int MaxMoves() {
-        return ((2*SIZE) -2);
-    }
+    private int MaxMoves() { return ((2*SIZE) -2); }
 
 
     //for this we determine sigma(1,n^2) - n*i)
@@ -174,7 +189,7 @@ public class Chromosome {
     }
 
     //this fitness function compares position relative to Goal State
-    //if (S,i == G,i) Fitness += 1--
+    //if (S,i == G,i) Fitness += 1
     private void SetFitnessGradeByPositionMatch() {
         int fc = 0;
 
@@ -194,9 +209,7 @@ public class Chromosome {
         return this.FitnessGrade;
     }
 
-    public void SetProbabilityGrade(float SumAll) {
-        this.FitnessProbability = (float) this.FitnessGrade / SumAll;
-    }
+    public void SetProbabilityGrade(float SumAll) { this.FitnessProbability = (this.FitnessGrade / SumAll) * 100; }
 
     public float GetProbabilityGrade() { return FitnessProbability; }
 }

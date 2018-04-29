@@ -17,12 +17,19 @@ public class Main {
         System.out.println("===============================================================");
 
         //start initial generation
+        int Generations = 1;
         GA ga = new GA(SIZE);
 
         ga.RandomPopulation();
-        ga.RoulletteSelect();
-        ga.PrintProbabilities();
+        while (!ga.IsGoalFound()) {
+            ga.RouletteSelect();
+            System.out.println("GOAL FOUND? : " + String.valueOf(ga.CheckIfGoalFound(ga.GetPopulation())));
+            Generations++;
+            //System.out.println("Generation: " + Generations);
+            //System.out.println(ga.PrintGeneration());
 
+        }
 
+        System.out.println("GOAL STATE FOUND AT GENERATION: " + Generations);
     }
 }
