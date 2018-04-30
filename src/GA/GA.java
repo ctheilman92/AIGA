@@ -57,7 +57,11 @@ public class GA {
 
             //generate each chromosome configuration such that each solution is solvable AND unique to our population
             c.SetState();
-            while (!c.IsStateSolvable() || !IsUniqueChromosome(c)) {
+//            while (!c.IsStateSolvable() || !IsUniqueChromosome(c)) {
+//                c.SetState();
+//            }
+
+            while (!IsUniqueChromosome(c)) {
                 c.SetState();
             }
 
@@ -73,6 +77,9 @@ public class GA {
         for (Chromosome c : Pool) {
             if (c.IsGoal()) {
                 return true;
+            }
+            else {
+                System.out.println("STATE NOT GOAL: " + c.GetState() + "-----" + c.GetFitnessGrade() + " or " + String.valueOf(c.GetProbabilityGrade()) + "{p(g)}");
             }
         }
 
@@ -114,6 +121,7 @@ public class GA {
             sum += c.GetFitnessGrade();
         }
 
+        System.out.println("SUM PHYSICAL FITNESS GRADES: " + sum);
         return sum;
     }
 
@@ -156,6 +164,8 @@ public class GA {
         Chromosome p1, p2;
 
         for (int i = POPULATION.size(); i < POPULATION_SIZE; i++) {
+
+
             //crossover & mutate
             Index1 = gen.nextInt(POPULATION.size());
             p1 = POPULATION.get(Index1);
@@ -175,8 +185,7 @@ public class GA {
         if (!CheckIfGoalFound(ChildPool)) {
 
             //for mutation we will try to dynamically pick the rate for a random number between 0 and the total of children produced in pool
-            System.out.println("child pool size: " + ChildPool.size());
-            int mxr = gen.nextInt((int)(ChildPool.size() * .2));
+            int mxr = gen.nextInt((ChildPool.size()));
             System.out.println("Mutation Rate: " + mxr);
 
             int MutationIndex;
@@ -188,19 +197,22 @@ public class GA {
         }
 
         ChildPool.forEach((c) -> {
-            if (c.IsStateSolvable() && IsUniqueChromosome(c)) {
+            if (IsUniqueChromosome(c)) {
                 POPULATION.add(c);
             }
             else {
+
                 //select weaker state to put back into population
                 int weakIndex = gen.nextInt(WeakerSolutions.size());
                 Chromosome weakc = WeakerSolutions.get(weakIndex);
 
-                while (!weakc.IsStateSolvable() || !IsUniqueChromosome(weakc)) {
+
+                while (!IsUniqueChromosome(weakc)) {
                     weakIndex = gen.nextInt(WeakerSolutions.size());
                     weakc = WeakerSolutions.get(weakIndex);
                 }
 
+                System.out.println("WEAKER STATE INCLUDED: " + weakc.GetState() + "-------" + weakc.GetFitnessGrade());
                 POPULATION.add(weakc);
             }
         });
@@ -214,6 +226,10 @@ public class GA {
 
         ArrayList<Integer> ChildState = new ArrayList<>();
 
+
+        System.out.println("CROSSOVER BEFORE " + cxval + " ----> p1: " + p1.GetState());
+        System.out.println("CROSSOVER BEFORE " + cxval + " ----> p2: " + p2.GetState());
+
         for (int i = 0; i < cxval; i ++) {
             int val = p1.GetState().get(i);
             ChildState.add(val);
@@ -223,12 +239,24 @@ public class GA {
 
             //if we already grabbed this value from p1, then just get indexed value from p1..
             int val = p2.GetState().get(i);
+
             if (ChildState.contains(val)) {
-                val = p1.GetState().get(i);
+                for (int j = 0; j < p2.GetState().size(); j++) {
+                    if (!ChildState.contains(j)) {
+                        val = j;
+                        continue;
+                    }
+                }
             }
+//            if (ChildState.contains(val)) {
+//                ChildState.add(val);
+//            }
 
             ChildState.add(val);
         }
+
+        System.out.println("CROSSOVER BEFORE " + cxval + " -> child: " + ChildState);
+
 
         //assume we have a new state of size N
         //here we are

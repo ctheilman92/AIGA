@@ -37,13 +37,15 @@ public class Chromosome {
         }
         GOALSTATE.add(0);
         STATE = NewState;
-        SetFitnessGradeByStepComparitor();
+        //SetFitnessGradeByStepComparitor();
+        SetFitnessGradeByValueMultiplier();
     }
 
 
     public void SetState(ArrayList<Integer> NewState) {
         this.STATE = NewState;
-        this.SetFitnessGradeByStepComparitor();
+        //this.SetFitnessGradeByStepComparitor();
+        this.SetFitnessGradeByValueMultiplier();
     }
 
     public void SetState() {
@@ -63,7 +65,8 @@ public class Chromosome {
         }
 
         //after this we need to set the fitness grade for this chromosome
-        this.SetFitnessGradeByStepComparitor();
+        //this.SetFitnessGradeByStepComparitor();
+        this.SetFitnessGradeByValueMultiplier();
     }
 
     public ArrayList<Integer> GetState() {
@@ -182,7 +185,8 @@ public class Chromosome {
 
         for (int tile : STATE) {
             int currentPos = STATE.indexOf(tile);
-            total += (currentPos * tile);
+            if (tile == 0) { tile = 9; }
+            total += ((currentPos+1) * tile);
         }
 
         this.FitnessGrade = total;

@@ -25,7 +25,7 @@ public class Main {
             ga.RouletteSelect();
             System.out.println("GOAL FOUND? : " + String.valueOf(ga.CheckIfGoalFound(ga.GetPopulation())));
             Generations++;
-            //System.out.println("Generation: " + Generations);
+            System.out.println("Generation: " + Generations);
             //System.out.println(ga.PrintGeneration());
 
         }
