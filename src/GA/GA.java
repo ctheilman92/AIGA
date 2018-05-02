@@ -1,9 +1,8 @@
 package GA;
 
 import com.sun.org.apache.bcel.internal.generic.POP;
+import com.sun.tools.javac.comp.Check;
 import javafx.scene.Parent;
-
-import javax.print.DocFlavor;
 import java.util.*;
 
 /*
@@ -17,14 +16,20 @@ public class GA {
     boolean GOAL_FOUND;
     int SIZE;                           //The length of columns in rows in the board states such that the board is [ SIZE * SIZE ]
     int POPULATION_SIZE;                //population size (BOARD_SIZE^2)^3 to gaurentee a large enough set of solvable states are in population
+    float CurrentGenMaxFitnessProb;
+    float CurrentGenMinFitnessProb;
     ArrayList<Chromosome> POPULATION;   //a set of state configurations possible solvable configurations
+    final double mkx = .5;
 
     public GA() { }
 
-    public GA(int N) {
+    public GA(int N, int P) {
+        CurrentGenMaxFitnessProb = 0;
+        CurrentGenMinFitnessProb = 0;
+
         this.GOAL_FOUND = false;
         this.SIZE = N;
-        this.POPULATION_SIZE = 50;
+        this.POPULATION_SIZE = P;
 
         System.out.println(SIZE + " ======== " + POPULATION_SIZE);
     }
@@ -74,16 +79,32 @@ public class GA {
 
     public boolean CheckIfGoalFound(ArrayList<Chromosome> Pool) {
 
+        boolean didFindGoal = false;
         for (Chromosome c : Pool) {
-            if (c.IsGoal()) {
-                return true;
+
+            float goalfitness = 0.0f;
+//            for (int i = 1; i <= c.GetState().size(); i++) {
+//                goalfitness += Math.pow(i, 2); //-> if using byValueMultiplier fitness
+//            }
+
+
+            goalfitness = c.GetState().size();//-> if using byStepComparator
+
+            if (c.GetState().toString().equals(c.GetGoal().toString())) {
+                System.out.println("STATE FOUND GOAL: " + c.GetState() + "----> S(f): " + c.GetFitnessGrade() + " vs G(f): " + goalfitness);
+                didFindGoal = true;
+                GOAL_FOUND = true;
             }
-            else {
-                System.out.println("STATE NOT GOAL: " + c.GetState() + "-----" + c.GetFitnessGrade() + " or " + String.valueOf(c.GetProbabilityGrade()) + "{p(g)}");
-            }
+//            else {
+//                System.out.println("STATE NOT FOUND GOAL: " + c.GetState() + "----> S(f): " + c.GetFitnessGrade() + " vs G(f): " + goalfitness);
+//            }
+
+
+            return didFindGoal;
         }
 
-        return false;
+
+        return didFindGoal;
     }
 
     public boolean IsGoalFound() { return GOAL_FOUND; }
@@ -121,9 +142,10 @@ public class GA {
             sum += c.GetFitnessGrade();
         }
 
-        System.out.println("SUM PHYSICAL FITNESS GRADES: " + sum);
         return sum;
     }
+
+
 
     /*
         the idea is to select the parents above the mean fitness probability of the set
@@ -131,104 +153,114 @@ public class GA {
     */
     public void RouletteSelect() {
 
+
+        POPULATION.sort((o1, o2) -> Double.compare((double) o1.GetFitnessGrade(), (double) o2.GetFitnessGrade()));
+        //POPULATION.forEach(c -> System.out.println(c.GetState() + " ----> " + c.GetFitnessGrade()));
+
+
         Random gen = new Random();
-        float SumFitness = GetSumFitness();
+        //float SumFitness = GetSumFitness();
+//        double kmx = (float)Math.random();
 
         //for every chromosome set a fitness-proportionate to the population
-        POPULATION.forEach(c -> c.SetProbabilityGrade(SumFitness));
-
-        float SumProbabilities = 0.0f;
-        for (Chromosome c : POPULATION) {
-            SumProbabilities += c.GetProbabilityGrade();
-        }
-
-        float threshold = (SumProbabilities / POPULATION_SIZE);
-
-        System.out.println("SUM OF ALL FITNESS PROBABILITIES: " + SumProbabilities);
-        System.out.println("THRESHOLD: " + threshold);
+        //POPULATION.forEach(c -> c.SetProbabilityGrade(SumFitness));
+//
 
 
-        //get all parents that have fitness probs >= the threshold
-        ArrayList<Chromosome> WeakerSolutions = new ArrayList<Chromosome>();
-        ArrayList<Chromosome> ChildPool = new ArrayList<Chromosome>();
+//        float threshold = (SumFitness / POPULATION_SIZE);
+//        System.out.println("THRESHOLD: " + threshold);
+//
+//        float cxr = gen.nextFloat() * (this.CurrentGenMaxFitnessProb - this.CurrentGenMinFitnessProb) + this.CurrentGenMinFitnessProb;
 
-        POPULATION.forEach((c) -> { if (c.GetProbabilityGrade() < threshold) { WeakerSolutions.add(c); }});
-        WeakerSolutions.forEach((c) -> POPULATION.remove(c));
+        //float cxr = gen.nextFloat() * (((this.CurrentGenMaxFitnessProb/SumFitness) * 100) - ((this.CurrentGenMinFitnessProb/SumFitness) * 100)) + ((this.CurrentGenMinFitnessProb/SumFitness) * 100);
+        //System.out.println("PROBABILITY THRESHOLD: " + cxr);
+
+//        //get all parents that have fitness probs >= the threshold
+//        ArrayList<Chromosome> WeakerSolutions = new ArrayList<Chromosome>();
+//        ArrayList<Chromosome> ChildPool = new ArrayList<Chromosome>();
+////
+//        POPULATION.forEach((c) -> { if (c.GetFitnessGrade() < cxr) { WeakerSolutions.add(c); }});
+//        WeakerSolutions.forEach((c) -> POPULATION.remove(c));
+//        System.out.println("POPULATION MATING POOL: -> " + POPULATION.size());
+////
+//        int breeding = ((POPULATION.size()/2) % 2 == 0) ? (POPULATION.size()/2) : ((POPULATION.size() -1) /2);
+//        System.out.println("BREEDING PAIRS: " + breeding);
 
 
         //use the parent solutions as a breeding pool
         //create a new child to replace all the weaker solutions
         //@param POPULATION_SIZE is always 50 - we deleted the weaker solutions in hte previous step
-        int Index1;
-        int Index2;
-        Chromosome p1, p2;
-
-        for (int i = POPULATION.size(); i < POPULATION_SIZE; i++) {
 
 
-            //crossover & mutate
-            Index1 = gen.nextInt(POPULATION.size());
-            p1 = POPULATION.get(Index1);
 
-            Index2 = gen.nextInt(POPULATION.size());
-            while (Index1 == Index2) { Index2 = gen.nextInt(POPULATION.size()); }
+        //the 2 best parents are at the end of the list -- try to replace the worst gene (first of the list)
+        ArrayList<Chromosome> Parents = new ArrayList<Chromosome>();
+        Chromosome Child = CrossOver(POPULATION.get(POPULATION.size() -1), POPULATION.get(POPULATION.size() -2));
+        Parents.add(Child);
 
+        if (!this.CheckIfGoalFound(Parents)) {
 
-            p2 = POPULATION.get(Index2);
+            //start mutation
+            double rand = Math.random();
+            if (rand >= mkx) {
+                Chromosome MXChild = Child;
+                Mutate(MXChild);
 
-            Chromosome Child = CrossOver(p1, p2);
-            ChildPool.add(Child);
-
-        }
-
-        //check to see if any children in the pool are goal states
-        if (!CheckIfGoalFound(ChildPool)) {
-
-            //for mutation we will try to dynamically pick the rate for a random number between 0 and the total of children produced in pool
-            int mxr = gen.nextInt((ChildPool.size()));
-            System.out.println("Mutation Rate: " + mxr);
-
-            int MutationIndex;
-            for (int i = 1; i <= mxr; i++) {
-                MutationIndex = gen.nextInt(ChildPool.size());
-                Chromosome mChild = Mutate(ChildPool.get(MutationIndex));
-                ChildPool.set(MutationIndex, mChild);
+                //if mutated child is superior replace child with this then compare with worst gene in pool
+                if (MXChild.GetFitnessGrade() >= Child.GetFitnessGrade())
+                    Child = MXChild;
             }
         }
 
-        ChildPool.forEach((c) -> {
-            if (IsUniqueChromosome(c)) {
-                POPULATION.add(c);
-            }
-            else {
+        if (Child.GetFitnessGrade() > POPULATION.get(0).GetFitnessGrade())
+            POPULATION.set(0,Child);
 
-                //select weaker state to put back into population
-                int weakIndex = gen.nextInt(WeakerSolutions.size());
-                Chromosome weakc = WeakerSolutions.get(weakIndex);
+//        for (int i = 0; i < breeding; i++) {
+//            Index1 = gen.nextInt(POPULATION.size());
+//            Index2 = gen.nextInt(POPULATION.size());
+//
+//            while (Index1 == Index2) {
+//                Index2 = gen.nextInt(POPULATION.size());
+//            }
+//
+//            //pop the 2 parents we will add either both back, or the stronger one and the new stronger child
+//            ArrayList<Chromosome> NewPair = CrossOver(POPULATION.get(Index1), POPULATION.get(Index2));
+//
+//
+//            //check the 2 new chromosomes if goal
+//            if (!CheckIfGoalFound(NewPair)) {
+//
+//                //if we didn't find hte goal state then mutate
+//                NewPair.forEach((c) -> {
+//                    double rand = Math.random();
+//                    if (rand >= mkx) {
+//
+//                        Mutate(c);  //instead of removing and reading from our pairs list - just change state if we wanna mutate
+//                    }
+//
+//                });
+//            }
+//
+////            System.out.println("ADDING STATES: \n\t" + NewPair.get(0).GetState() + "\n\t" + NewPair.get(1).GetState());
+//
+//            POPULATION.set(Index1, NewPair.get(0));
+//            POPULATION.set(Index2, NewPair.get(0));
+//        }
 
 
-                while (!IsUniqueChromosome(weakc)) {
-                    weakIndex = gen.nextInt(WeakerSolutions.size());
-                    weakc = WeakerSolutions.get(weakIndex);
-                }
-
-                System.out.println("WEAKER STATE INCLUDED: " + weakc.GetState() + "-------" + weakc.GetFitnessGrade());
-                POPULATION.add(weakc);
-            }
-        });
     }
 
 
     public Chromosome CrossOver(Chromosome p1, Chromosome p2) {
+        ArrayList<Chromosome> NewPair = new ArrayList<Chromosome>();
+
         Random gen = new Random();
         int cxval = 0;
         while (cxval == 0) { cxval = gen.nextInt(p1.GetState().size()); }
 
         ArrayList<Integer> ChildState = new ArrayList<>();
-
-
-        System.out.println("CROSSOVER BEFORE " + cxval + " ----> p1: " + p1.GetState());
-        System.out.println("CROSSOVER BEFORE " + cxval + " ----> p2: " + p2.GetState());
+        System.out.println("CROSSOVER " + cxval + " ----> p1: " + p1.GetState());
+        System.out.println("CROSSOVER " + cxval + " ----> p2: " + p2.GetState());
 
         for (int i = 0; i < cxval; i ++) {
             int val = p1.GetState().get(i);
@@ -248,23 +280,43 @@ public class GA {
                     }
                 }
             }
-//            if (ChildState.contains(val)) {
-//                ChildState.add(val);
-//            }
 
             ChildState.add(val);
         }
 
-        System.out.println("CROSSOVER BEFORE " + cxval + " -> child: " + ChildState);
-
-
-        //assume we have a new state of size N
-        //here we are
+        System.out.println("CROSSOVER " + cxval + " -> child: " + ChildState);
         return new Chromosome(ChildState.size(), ChildState);
+
+//        if (p1.GetFitnessGrade() > p2.GetFitnessGrade()) {
+//
+//            ReturnParent = p1;
+//            if (p2.GetFitnessGrade() < ReturnChild.GetFitnessGrade() && ReturnChild.GetState() != p1.GetState()) {
+//
+//                NewPair.add(ReturnChild);
+//            }
+//            else {
+//                NewPair.add(p2);
+//            }
+//        }
+//        else {  //p2 is greater, so log at least this child
+//
+//            ReturnParent = p2;
+//            if (p1.GetFitnessGrade() < ReturnChild.GetFitnessGrade() && ReturnChild.GetState() != p2.GetState()) {
+//                NewPair.add(ReturnChild);
+//            }
+//            else {
+//                NewPair.add(p1);
+//            }
+//
+//        }
+//
+//        NewPair.add(ReturnParent);
+//        return NewPair;
     }
 
 
-    public Chromosome Mutate(Chromosome c) {
+    //we are mutating the state inside of here
+    public void Mutate(Chromosome c) {
         Random gen = new Random();
         int c1 = gen.nextInt(c.GetState().size());
         int c2 = c1;
@@ -273,15 +325,15 @@ public class GA {
             c2 = gen.nextInt(c.GetState().size());
         }
 
-        //System.out.println("chromosome before mutation: " + c.GetState());
+        System.out.println("chromosome before mutation: " + c.GetState());
 
 
         ArrayList<Integer> swapstate = c.GetState();
         Collections.swap(swapstate, c1, c2);
         c.SetState(swapstate);
 
-        //System.out.println("chromosome after mutating points " + c1 + " and " + c2 + " :-> " + c.GetState());
-        return c;
+        System.out.println("chromosome after mutating points " + c1 + " and " + c2 + " :-> " + c.GetState());
+ //       return c;
     }
 
 }

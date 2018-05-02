@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cbd687b7-2fdb-43e5-9266-bb10ebed780c" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AIGA/GA/Chromosome.class" afterPath="$PROJECT_DIR$/out/production/AIGA/GA/Chromosome.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AIGA/GA/GA.class" afterPath="$PROJECT_DIR$/out/production/AIGA/GA/GA.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AIGA/Main.class" afterPath="$PROJECT_DIR$/out/production/AIGA/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -25,8 +26,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="130">
+              <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -35,20 +36,17 @@
       <file leaf-file-name="GA.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GA/GA.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="217" column="11" lean-forward="false" selection-start-line="217" selection-start-column="11" selection-end-line="217" selection-end-column="11" />
+            <state relative-caret-position="161">
+              <caret line="27" column="37" lean-forward="true" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#GA#1;class#GA#0" expanded="false" />
                 <element signature="method#PrintGeneration#0;class#GA#0" expanded="false" />
                 <element signature="method#RandomPopulation#0;class#GA#0" expanded="false" />
-                <element signature="method#CheckIfGoalFound#0;class#GA#0" expanded="false" />
-                <element signature="method#IsUniqueChromosome#0;class#GA#0" expanded="false" />
                 <element signature="method#PrintProbabilities#0;class#GA#0" expanded="false" />
                 <element signature="method#GetSumFitness#0;class#GA#0" expanded="false" />
-                <element signature="e#4337#4349#0" expanded="true" />
-                <element signature="e#4408#4420#0" expanded="true" />
-                <marker date="1525106691022" expanded="true" signature="1646:1762" ph="..." />
+                <element signature="e#6389#6401#0" expanded="true" />
+                <element signature="e#8512#8524#0" expanded="true" />
+                <marker date="1525219919967" expanded="true" signature="1836:1952" ph="..." />
               </folding>
             </state>
           </provider>
@@ -57,18 +55,16 @@
       <file leaf-file-name="Chromosome.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GA/Chromosome.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="178" column="0" lean-forward="true" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
+            <state relative-caret-position="442">
+              <caret line="34" column="38" lean-forward="true" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#Chromosome#0;class#Chromosome#0" expanded="false" />
-                <element signature="method#SetState#0;class#Chromosome#0" expanded="false" />
-                <element signature="method#SetState#1;class#Chromosome#0" expanded="false" />
                 <element signature="method#IsStateSolvable#0;class#Chromosome#0" expanded="false" />
                 <element signature="method#TransposeGridCoordinates#0;class#Chromosome#0" expanded="false" />
                 <element signature="method#SetFitnessGradeByStepComparitor#0;class#Chromosome#0" expanded="false" />
-                <element signature="method#SetFitnessGradeByValueMultiplier#0;class#Chromosome#0" expanded="false" />
                 <element signature="method#SetFitnessGradeByPositionMatch#0;class#Chromosome#0" expanded="false" />
+                <element signature="e#6568#6569#0" expanded="true" />
+                <element signature="e#6647#6648#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -90,6 +86,8 @@
       <find>SetFitness</find>
       <find>SetFitnessGrade</find>
       <find>SetFitnessGradeByStepComparitor</find>
+      <find>CheckIfGoalFound</find>
+      <find>SetFitnessGradeByValueMultiplier</find>
     </findStrings>
     <replaceStrings>
       <replace>SIZE</replace>
@@ -107,8 +105,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/out/production/AIGA/GA/Chromosome.class" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/GA/Chromosome.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/GA/GA.java" />
       </list>
     </option>
@@ -183,7 +181,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="Main" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="3" />
+      <option name="PROGRAM_PARAMETERS" value="6 50" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -298,6 +296,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -307,9 +306,8 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.20457797" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3283582" sideWeight="0.795422" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44900498" sideWeight="0.795422" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -325,6 +323,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -361,11 +360,52 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="28" />
+      <option name="time" value="33" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="29" column="55" lean-forward="false" selection-start-line="29" selection-start-column="55" selection-end-line="29" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GA/GA.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1495">
+          <caret line="175" column="119" lean-forward="false" selection-start-line="175" selection-start-column="119" selection-end-line="175" selection-end-column="119" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#PrintGeneration#0;class#GA#0" expanded="false" />
+            <element signature="method#RandomPopulation#0;class#GA#0" expanded="false" />
+            <element signature="method#PrintProbabilities#0;class#GA#0" expanded="false" />
+            <element signature="method#GetSumFitness#0;class#GA#0" expanded="false" />
+            <element signature="e#6389#6401#0" expanded="true" />
+            <element signature="e#8512#8524#0" expanded="true" />
+            <marker date="1525219919967" expanded="true" signature="1836:1952" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GA/Chromosome.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="11" column="21" lean-forward="false" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#IsStateSolvable#0;class#Chromosome#0" expanded="false" />
+            <element signature="method#TransposeGridCoordinates#0;class#Chromosome#0" expanded="false" />
+            <element signature="method#SetFitnessGradeByStepComparitor#0;class#Chromosome#0" expanded="false" />
+            <element signature="method#SetFitnessGradeByPositionMatch#0;class#Chromosome#0" expanded="false" />
+            <element signature="e#6568#6569#0" expanded="true" />
+            <element signature="e#6647#6648#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -380,14 +420,12 @@
           <caret line="102" column="71" lean-forward="true" selection-start-line="102" selection-start-column="71" selection-end-line="102" selection-end-column="71" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#Chromosome#0;class#Chromosome#0" expanded="false" />
-            <element signature="method#SetState#0;class#Chromosome#0" expanded="false" />
-            <element signature="method#SetState#1;class#Chromosome#0" expanded="false" />
             <element signature="method#IsStateSolvable#0;class#Chromosome#0" expanded="false" />
             <element signature="method#TransposeGridCoordinates#0;class#Chromosome#0" expanded="false" />
             <element signature="method#SetFitnessGradeByStepComparitor#0;class#Chromosome#0" expanded="false" />
-            <element signature="method#SetFitnessGradeByValueMultiplier#0;class#Chromosome#0" expanded="false" />
             <element signature="method#SetFitnessGradeByPositionMatch#0;class#Chromosome#0" expanded="false" />
+            <element signature="e#6568#6569#0" expanded="true" />
+            <element signature="e#6647#6648#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -406,14 +444,12 @@
           <caret line="63" column="24" lean-forward="true" selection-start-line="63" selection-start-column="24" selection-end-line="63" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#Chromosome#0;class#Chromosome#0" expanded="false" />
-            <element signature="method#SetState#0;class#Chromosome#0" expanded="false" />
-            <element signature="method#SetState#1;class#Chromosome#0" expanded="false" />
             <element signature="method#IsStateSolvable#0;class#Chromosome#0" expanded="false" />
             <element signature="method#TransposeGridCoordinates#0;class#Chromosome#0" expanded="false" />
             <element signature="method#SetFitnessGradeByStepComparitor#0;class#Chromosome#0" expanded="false" />
-            <element signature="method#SetFitnessGradeByValueMultiplier#0;class#Chromosome#0" expanded="false" />
             <element signature="method#SetFitnessGradeByPositionMatch#0;class#Chromosome#0" expanded="false" />
+            <element signature="e#6568#6569#0" expanded="true" />
+            <element signature="e#6647#6648#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -424,16 +460,13 @@
           <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#GA#1;class#GA#0" expanded="false" />
             <element signature="method#PrintGeneration#0;class#GA#0" expanded="false" />
             <element signature="method#RandomPopulation#0;class#GA#0" expanded="false" />
-            <element signature="method#CheckIfGoalFound#0;class#GA#0" expanded="false" />
-            <element signature="method#IsUniqueChromosome#0;class#GA#0" expanded="false" />
             <element signature="method#PrintProbabilities#0;class#GA#0" expanded="false" />
             <element signature="method#GetSumFitness#0;class#GA#0" expanded="false" />
-            <element signature="e#4337#4349#0" expanded="true" />
-            <element signature="e#4408#4420#0" expanded="true" />
-            <marker date="1525106691022" expanded="true" signature="1646:1762" ph="..." />
+            <element signature="e#6389#6401#0" expanded="true" />
+            <element signature="e#8512#8524#0" expanded="true" />
+            <marker date="1525219919967" expanded="true" signature="1836:1952" ph="..." />
           </folding>
         </state>
       </provider>
@@ -450,46 +483,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="130">
+          <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GA/Chromosome.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="178" column="0" lean-forward="true" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
+        <state relative-caret-position="442">
+          <caret line="34" column="38" lean-forward="true" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#Chromosome#0;class#Chromosome#0" expanded="false" />
-            <element signature="method#SetState#0;class#Chromosome#0" expanded="false" />
-            <element signature="method#SetState#1;class#Chromosome#0" expanded="false" />
             <element signature="method#IsStateSolvable#0;class#Chromosome#0" expanded="false" />
             <element signature="method#TransposeGridCoordinates#0;class#Chromosome#0" expanded="false" />
             <element signature="method#SetFitnessGradeByStepComparitor#0;class#Chromosome#0" expanded="false" />
-            <element signature="method#SetFitnessGradeByValueMultiplier#0;class#Chromosome#0" expanded="false" />
             <element signature="method#SetFitnessGradeByPositionMatch#0;class#Chromosome#0" expanded="false" />
+            <element signature="e#6568#6569#0" expanded="true" />
+            <element signature="e#6647#6648#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GA/GA.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="217" column="11" lean-forward="false" selection-start-line="217" selection-start-column="11" selection-end-line="217" selection-end-column="11" />
+        <state relative-caret-position="161">
+          <caret line="27" column="37" lean-forward="true" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#GA#1;class#GA#0" expanded="false" />
             <element signature="method#PrintGeneration#0;class#GA#0" expanded="false" />
             <element signature="method#RandomPopulation#0;class#GA#0" expanded="false" />
-            <element signature="method#CheckIfGoalFound#0;class#GA#0" expanded="false" />
-            <element signature="method#IsUniqueChromosome#0;class#GA#0" expanded="false" />
             <element signature="method#PrintProbabilities#0;class#GA#0" expanded="false" />
             <element signature="method#GetSumFitness#0;class#GA#0" expanded="false" />
-            <element signature="e#4337#4349#0" expanded="true" />
-            <element signature="e#4408#4420#0" expanded="true" />
-            <marker date="1525106691022" expanded="true" signature="1646:1762" ph="..." />
+            <element signature="e#6389#6401#0" expanded="true" />
+            <element signature="e#8512#8524#0" expanded="true" />
+            <marker date="1525219919967" expanded="true" signature="1836:1952" ph="..." />
           </folding>
         </state>
       </provider>

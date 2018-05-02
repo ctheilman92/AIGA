@@ -1,11 +1,12 @@
 package GA;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 
 
 
-public class Chromosome {
+public class Chromosome implements Comparable<Chromosome> {
 
     private ArrayList<Integer> GOALSTATE;
     private int SIZE;                   //board size is [SIZE*SIZE]
@@ -18,8 +19,8 @@ public class Chromosome {
         SIZE = n;
         NUMTILES = (n*n);
 
-        GOALSTATE = new ArrayList<>(NUMTILES);
-        for(int i = 1; i < NUMTILES; i++) {
+        GOALSTATE = new ArrayList<>();
+        for(int i = 1; i < n; i++) {
             GOALSTATE.add(i);
         }
 
@@ -31,21 +32,21 @@ public class Chromosome {
         SIZE = n;
         NUMTILES = (n*n);
 
-        GOALSTATE = new ArrayList<>(NUMTILES);
-        for (int i = 1; i < NUMTILES; i++) {
+        GOALSTATE = new ArrayList<>();
+        for (int i = 1; i < n; i++) {
             GOALSTATE.add(i);
         }
         GOALSTATE.add(0);
         STATE = NewState;
-        //SetFitnessGradeByStepComparitor();
-        SetFitnessGradeByValueMultiplier();
+        SetFitnessGradeByStepComparitor();
+        //SetFitnessGradeByValueMultiplier();
     }
 
 
     public void SetState(ArrayList<Integer> NewState) {
         this.STATE = NewState;
-        //this.SetFitnessGradeByStepComparitor();
-        this.SetFitnessGradeByValueMultiplier();
+        this.SetFitnessGradeByStepComparitor();
+        //this.SetFitnessGradeByValueMultiplier();
     }
 
     public void SetState() {
@@ -65,8 +66,8 @@ public class Chromosome {
         }
 
         //after this we need to set the fitness grade for this chromosome
-        //this.SetFitnessGradeByStepComparitor();
-        this.SetFitnessGradeByValueMultiplier();
+        this.SetFitnessGradeByStepComparitor();
+        //this.SetFitnessGradeByValueMultiplier();
     }
 
     public ArrayList<Integer> GetState() {
@@ -180,7 +181,6 @@ public class Chromosome {
 
     //for this we determine sigma(1,n^2) - n*i)
     private void SetFitnessGradeByValueMultiplier() {
-
         int total = 0;
 
         for (int tile : STATE) {
@@ -216,4 +216,9 @@ public class Chromosome {
     public void SetProbabilityGrade(float SumAll) { this.FitnessProbability = (this.FitnessGrade / SumAll) * 100; }
 
     public float GetProbabilityGrade() { return FitnessProbability; }
+
+    @Override
+    public int compareTo(Chromosome o) {
+        return ((int)this.GetFitnessGrade() - (int)o.GetFitnessGrade());
+    }
 }
