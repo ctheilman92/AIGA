@@ -8,13 +8,16 @@ import java.util.Random;
 
 public class Chromosome implements Comparable<Chromosome> {
 
+    //region MEMBERS
     private ArrayList<Integer> GOALSTATE;
     private int SIZE;                   //board size is [SIZE*SIZE]
     private int NUMTILES;               //number of tiles in a set STATE.   = SIZE * SIZE (since we are designating '0' as the empty tile
     private float FitnessGrade;           //this set when population is created
     private float FitnessProbability;   //this set later when selection occurs -- we divide by the total of all chromosome's fitness grades to get probability of selection
     private ArrayList<Integer> STATE;
+    //endregion
 
+    //region CONSTRUCTORS
     public Chromosome(int n) {
         SIZE = n;
         NUMTILES = (n*n);
@@ -41,8 +44,9 @@ public class Chromosome implements Comparable<Chromosome> {
         SetFitnessGradeByStepComparitor();
         //SetFitnessGradeByValueMultiplier();
     }
+    //endregion
 
-
+    //region METHODS
     public void SetState(ArrayList<Integer> NewState) {
         this.STATE = NewState;
         this.SetFitnessGradeByStepComparitor();
@@ -50,6 +54,7 @@ public class Chromosome implements Comparable<Chromosome> {
     }
 
     public void SetState() {
+
         STATE = new ArrayList<>();
         int tile;
 
@@ -60,7 +65,6 @@ public class Chromosome implements Comparable<Chromosome> {
                 tile = gen.nextInt(NUMTILES);
 
             } while(STATE.contains(tile));
-
 
             STATE.add(tile);
         }
@@ -178,7 +182,6 @@ public class Chromosome implements Comparable<Chromosome> {
     //total moves = 2N - 2
     private int MaxMoves() { return ((2*SIZE) -2); }
 
-
     //for this we determine sigma(1,n^2) - n*i)
     private void SetFitnessGradeByValueMultiplier() {
         int total = 0;
@@ -221,4 +224,5 @@ public class Chromosome implements Comparable<Chromosome> {
     public int compareTo(Chromosome o) {
         return ((int)this.GetFitnessGrade() - (int)o.GetFitnessGrade());
     }
+    //endregion
 }

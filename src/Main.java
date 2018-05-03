@@ -11,6 +11,8 @@ public class Main {
             System.exit(1);
         }
 
+        long APPLICATION_START_TIME = System.currentTimeMillis();
+
         //this is [SIZE * SIZE] board => there are SIZE^2 - 1
         int SIZE = Integer.parseInt(args[0]);
         int POP = Integer.parseInt(args[1]);
@@ -23,13 +25,15 @@ public class Main {
 
         ga.RandomPopulation();
         while (!ga.IsGoalFound()) {
+
             ga.RouletteSelect();
-            //System.out.println("GOAL FOUND? : " + String.valueOf(ga.CheckIfGoalFound(ga.GetPopulation())));
             Generations++;
-            System.out.println("Generation: " + Generations);
-//            System.out.println(ga.PrintGeneration());
+            System.out.println("\n"+(char)27 + "[31m" + "GEN: " + Generations);
         }
 
         System.out.println("GOAL STATE FOUND AT GENERATION: " + Generations);
+        long APPLICATION_STOP_TIME = System.currentTimeMillis();
+
+        System.out.println("EXECUTION TIME: " + (APPLICATION_STOP_TIME - APPLICATION_START_TIME) + "/Ms");
     }
 }
